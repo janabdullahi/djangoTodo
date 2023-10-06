@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import crud
 from .forms import crudForm
 
@@ -8,6 +8,11 @@ def index(request):
     cruds = crud.objects.all()
     form = crudForm()
 
-    context = {'cruds':cruds, 'form':form}
+    if request.method == 'POST':
+        form = crudForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('/')
 
+    context = {'cruds':cruds, 'form':form}
     return render(request, 'crud/list.html', context)
