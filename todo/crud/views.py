@@ -29,3 +29,12 @@ def update(request,pk):
     
     context = {'form':form}
     return render(request, 'crud/update.html', context)
+
+def delete(request,pk):
+    item = crud.objects.get(id=pk)
+    if request.method == 'POST':
+        item.delete()
+        return redirect('/')
+
+    context = {'item':item}
+    return render(request, 'crud/delete.html',context)
