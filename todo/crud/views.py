@@ -16,3 +16,16 @@ def index(request):
 
     context = {'cruds':cruds, 'form':form}
     return render(request, 'crud/list.html', context)
+
+def update(request,pk):
+    cruds = crud.objects.get(id=pk)
+    form = crudForm(instance=cruds)
+
+    if request.method == 'POST':
+        form = crudForm(request.POST,instance=cruds)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    
+    context = {'form':form}
+    return render(request, 'crud/update.html', context)

@@ -9,6 +9,7 @@
 {% for crud in cruds %}
     <div>
         <p>
+            <a href="{% url 'update' crud.id %}">Update</a>
             {{crud}}
         </p>
     </div>
