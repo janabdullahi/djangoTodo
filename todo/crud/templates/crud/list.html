@@ -8,10 +8,12 @@
 
 {% for crud in cruds %}
     <div>
-        <p>
-            <a href="{% url 'update' crud.id %}">Update</a>
-            <a href="{% url 'delete' crud.id %}">Delete</a>
-            {{crud}}
-        </p>
+        <a href="{% url 'update' crud.id %}">Update</a>
+        <a href="{% url 'delete' crud.id %}">Delete</a>
+        {% if crud.complete == True %}
+        <strike>{{crud}}</strike>
+        {% else %}
+        <span>{{crud}}</span>
+        {% endif %}
     </div>
 {% endfor %}
